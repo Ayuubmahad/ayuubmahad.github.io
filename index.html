@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ayuub Mahad — backend engineer. Three production-minded systems: a payments core proven correct under load, a real-time fraud engine, and a hybrid search engine.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ayuub Mahad — Backend Engineer">
+<meta property="og:description" content="Three backend systems built for correctness: payments (0 drift, p95 27ms), real-time fraud scoring (p99 7ms, safe failover), hybrid search (precision 0.46→1.00).">
+<title>Ayuub Mahad — Backend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --bg:#ECE9E1; --bg-2:#E2DED2; --fg:#17150F; --fg-2:#5B5749; --rule:#C7C2B4; --rule-2:#17150F;
+    --accent:#D23A18; --on-accent:#F2EFE7;
+    --display:"Bricolage Grotesque",sans-serif; --body:"Hanken Grotesk",system-ui,sans-serif; --mono:"Space Mono",ui-monospace,monospace;
+    --maxw:1100px; --gutter:clamp(20px,4vw,60px);
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#121009; --bg-2:#1B1811; --fg:#ECE7DB; --fg-2:#968F7C; --rule:#2E2B20; --rule-2:#ECE7DB;
+    --accent:#FF5B38; --on-accent:#121009;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#121009; --bg-2:#1B1811; --fg:#ECE7DB; --fg-2:#968F7C; --rule:#2E2B20; --rule-2:#ECE7DB;
+    --accent:#FF5B38; --on-accent:#121009;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--accent);color:var(--on-accent)}
+  .shell{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+  h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance;line-height:.98}
+  a{color:inherit;text-decoration:none}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+  .label{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2)}
+  .label .hot{color:var(--accent)}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  .bar{border-bottom:1.5px solid var(--rule-2);padding:16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .wordmark{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .wordmark .sub{color:var(--fg-2);font-weight:400}
+  .navm{display:flex;gap:24px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .navm a{color:var(--fg-2)} .navm a:hover{color:var(--accent)}
+
+  .hero{padding:clamp(52px,9vw,110px) 0 clamp(40px,6vw,72px);border-bottom:1.5px solid var(--rule-2)}
+  .hero .label{margin-bottom:26px}
+  .hero h1{font-size:clamp(44px,9vw,104px);letter-spacing:-.035em}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero .lead{margin-top:26px;max-width:56ch;font-size:clamp(17px,2vw,20px);color:var(--fg-2)}
+  .hero .lead b{color:var(--fg);font-weight:600}
+
+  .proj{display:grid;grid-template-columns:64px 1fr;gap:clamp(16px,3vw,40px);padding:clamp(36px,5vw,56px) 0;border-bottom:1px solid var(--rule)}
+  .proj .idx{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--accent);letter-spacing:.1em;padding-top:8px}
+  .proj h2{font-size:clamp(30px,5vw,52px);letter-spacing:-.03em}
+  .proj .sk{font-family:var(--mono);font-size:12px;color:var(--fg-2);letter-spacing:.05em;margin-top:8px}
+  .proj p{margin:16px 0 0;max-width:60ch;color:var(--fg)}
+  .metrics{display:flex;flex-wrap:wrap;gap:0;margin:24px 0 4px;border-top:1px solid var(--rule)}
+  .metric{padding:16px 24px 16px 0;border-right:1px solid var(--rule)}
+  .metric:last-child{border-right:none}
+  .metric .n{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.4vw,38px);letter-spacing:-.03em}
+  .metric.hot .n{color:var(--accent)}
+  .metric .k{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-2);margin-top:6px}
+  .links{display:flex;flex-wrap:wrap;gap:0;margin-top:22px;border:1.5px solid var(--rule-2);width:fit-content}
+  .links a{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:11px 18px}
+  .links a+a{border-left:1.5px solid var(--rule-2)}
+  .links a.primary{background:var(--accent);color:var(--on-accent)}
+  .links a.primary:hover{filter:brightness(1.07)}
+  .links a.ghost:hover{background:var(--fg);color:var(--bg)}
+
+  footer{padding:clamp(44px,7vw,80px) 0 60px}
+  .foot-word{font-family:var(--display);font-weight:800;font-size:clamp(44px,12vw,150px);letter-spacing:-.05em;line-height:.85}
+  .foot-word .dot{color:var(--accent)}
+  .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:22px;margin-top:34px;align-items:end}
+  .foot-links{display:flex;gap:22px;font-family:var(--mono);font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+  .foot-links a{border-bottom:1.5px solid var(--accent);padding-bottom:3px}
+  .foot-links a:hover{color:var(--accent)}
+  .foot-note{font-family:var(--mono);font-size:11px;color:var(--fg-2);letter-spacing:.04em;max-width:44ch;text-align:right;line-height:1.9}
+  @media (max-width:640px){.proj{grid-template-columns:1fr}.foot-note{text-align:left}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="bar">
+    <div class="wordmark">Ayuub Mahad <span class="sub">— Backend Engineer</span></div>
+    <nav class="navm"><a href="#work">Work</a><a href="https://github.com/Ayuubmahad">GitHub ↗</a></nav>
+  </div>
+
+  <header class="hero">
+    <div class="label">Portfolio · Backend / Systems · <span class="hot">Stockholm</span></div>
+    <h1>Three backend systems, built to be <em>provably</em> correct.</h1>
+    <p class="lead">I build correctness-critical backends — payments, real-time risk, search — and I <b>prove</b> the claims with load tests, an eval harness, and honest numbers, not adjectives. Each project ships with tests, one-command Docker, green CI, and a "where it failed and what I learned" write-up.</p>
+  </header>
+
+  <section id="work">
+    <!-- KASSA -->
+    <article class="proj">
+      <div class="idx">01</div>
+      <div>
+        <h2>Kassa</h2>
+        <div class="sk">Payments core · TypeScript · Fastify · PostgreSQL</div>
+        <p>A marketplace payments backend on an append-only <b>double-entry ledger</b>. Idempotent APIs (retry a checkout, charged once) and provable correctness under concurrent load — <b>0 balance drift</b>, no oversell, proven with k6.</p>
+        <div class="metrics">
+          <div class="metric"><div class="n">0</div><div class="k">balance drift</div></div>
+          <div class="metric hot"><div class="n">27<span style="font-size:.5em">ms</span></div><div class="k">p95 @ 200 rps</div></div>
+          <div class="metric"><div class="n">1×</div><div class="k">exactly-once</div></div>
+          <div class="metric"><div class="n">47</div><div class="k">tests · CI green</div></div>
+        </div>
+        <div class="links">
+          <a class="primary" href="https://ayuubmahad.github.io/kassa/">Showcase ↗</a>
+          <a class="ghost" href="https://github.com/Ayuubmahad/kassa">Source ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- VAKT -->
+    <article class="proj">
+      <div class="idx">02</div>
+      <div>
+        <h2>Vakt</h2>
+        <div class="sk">Real-time fraud engine · Python · FastAPI · Redis Streams · XGBoost</div>
+        <p>Scores a live event stream in <b>&lt;100ms</b> with ML + rules and decides approve / flag / block with reason codes. A <b>circuit breaker</b> degrades safely to rules-only when the model fails — the system never goes blind. <span class="mono" style="font-size:.85em;color:var(--fg-2)">(metrics on simulated traffic)</span></p>
+        <div class="metrics">
+          <div class="metric hot"><div class="n">7<span style="font-size:.5em">ms</span></div><div class="k">decision p99</div></div>
+          <div class="metric"><div class="n">0.93</div><div class="k">PR-AUC</div></div>
+          <div class="metric"><div class="n">0</div><div class="k">dropped on failover</div></div>
+          <div class="metric"><div class="n">28</div><div class="k">tests · CI green</div></div>
+        </div>
+        <div class="links">
+          <a class="ghost" href="https://github.com/Ayuubmahad/vakt">Source ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- KOMPASS -->
+    <article class="proj">
+      <div class="idx">03</div>
+      <div>
+        <h2>Kompass</h2>
+        <div class="sk">Hybrid search · Python · FastAPI · PostgreSQL + pgvector</div>
+        <p>Keyword full-text search <b>fused</b> with pgvector semantic search over a podcast catalog, with relevance made into a <b>number</b> (precision@k). Keyword returns nothing for natural-language queries; adding embeddings takes coverage and precision to 1.00.</p>
+        <div class="metrics">
+          <div class="metric"><div class="n">0.46</div><div class="k">keyword P@10</div></div>
+          <div class="metric hot"><div class="n">1.00</div><div class="k">semantic P@10</div></div>
+          <div class="metric"><div class="n">131<span style="font-size:.5em">ms</span></div><div class="k">p95 hybrid</div></div>
+          <div class="metric"><div class="n">1</div><div class="k">eval harness</div></div>
+        </div>
+        <div class="links">
+          <a class="ghost" href="https://github.com/Ayuubmahad/kompass">Source ↗</a>
+        </div>
+      </div>
+    </article>
+  </section>
+</div>
+
+<footer>
+  <div class="shell">
+    <div class="foot-word">AYUUB<span class="dot">.</span></div>
+    <div class="foot-grid">
+      <div class="foot-links">
+        <a href="https://github.com/Ayuubmahad">GitHub ↗</a>
+        <a href="mailto:mahadayuub519@gmail.com">Email ↗</a>
+      </div>
+      <div class="foot-note">Backend / systems engineer. Payments, real-time risk, and search — built to be defended line by line. Metrics measured locally; ML/search numbers are on simulated data (stated in each repo).</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
